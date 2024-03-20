@@ -1,0 +1,234 @@
+<div class="row">
+  <div class="col-md-12 col-xl-8" style="width: 100%">
+    <div class="card tbl-card">
+      <div class="card-body">
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb" class="main-breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a [href]="'admin/dashboard'">Home</a></li>
+            <li class="breadcrumb-item"><a [href]="'admin/jobs'">Job</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Add Job</li>
+          </ol>
+        </nav>
+        <!-- /Breadcrumb -->
+        <div class="table-responsive"
+          ><div class="card">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-end mb-4">
+                <h3 class="mb-0"><b>Add Job </b></h3>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label" for="firstName">Title*</label>
+                    <input
+                      type="text"
+                      #Title="ngModel"
+                      required
+                      [(ngModel)]="jobDto.title"
+                      class="form-control"
+                      id="firstName"
+                      placeholder="First Name"
+                    />
+                  </div>
+                  <div *ngIf="Title.invalid && (Title.dirty || Title.touched)" class="alert alert-danger">
+                    <div *ngIf="Title.errors?.['required']">Title is required.</div></div
+                  >
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label" for="lastName">Postion Type*</label>
+                    <select
+                      type="text"
+                      [(ngModel)]="jobDto.postionType"
+                      class="form-control"
+                      id="qualification"
+                      placeholder="Select Qualification"
+                      #PostionType="ngModel"
+                      required
+                      (click)="addCustom()"
+                    >
+                      <option value="Manager">Manager</option>
+                      <option value="Software Developer">Software Developer</option>
+                      <option value="Senior Developer">Senior Developer</option>
+                      <option value="Director">Director</option>
+                      <option value="Manager COO"> Manager COO</option>
+                      <option value="Manager CTO">Manager CTO</option>
+                      <option value="Software Trainee"> Software Trainee</option>
+                      <option value="Marketing trainee">Marketing trainee </option>
+                      <option value="HR Executive"> HR Executive </option>
+                      <option value="Software Tester"> Software Tester </option>
+                      <option value="{{ this.jobDto.postionType == null ? 'Custom' : this.jobDto.postionType }}">
+                        {{ this.jobDto.postionType == null ? 'Custom' : this.jobDto.postionType }}
+                      </option>
+                    </select>
+                  </div>
+                  <div *ngIf="PostionType.invalid && (PostionType.dirty || PostionType.touched)" class="alert alert-danger">
+                    <div *ngIf="PostionType.errors?.['required']">Postion Type is required.</div></div
+                  >
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label" for="Department">Department*</label>
+                    <input
+                      type="text"
+                      [(ngModel)]="jobDto.department"
+                      class="form-control"
+                      id="Department"
+                      placeholder="Department"
+                      #Department="ngModel"
+                      required
+                    />
+                  </div>
+                  <div *ngIf="Department.invalid && (Department.dirty || Department.touched)" class="alert alert-danger">
+                    <div *ngIf="Department.errors?.['required']">Department is required.</div></div
+                  >
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label" for="NoOfPostions">No Of Postions*</label>
+                    <input
+                      type="number"
+                      [(ngModel)]="jobDto.noOfPostions"
+                      class="form-control"
+                      id="NoOfPostions"
+                      min="1"
+                      placeholder="NoOfPostions"
+                      #NoOfPostions="ngModel"
+                      required
+                    />
+                  </div>
+                  <div *ngIf="NoOfPostions.invalid && (NoOfPostions.dirty || NoOfPostions.touched)" class="alert alert-danger">
+                    <div *ngIf="NoOfPostions.errors?.['required']">No Of Postions is required.</div></div
+                  >
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label" for="Expriance">Expriance*</label>
+                    <input
+                      type="text"
+                      [(ngModel)]="jobDto.expriance"
+                      class="form-control"
+                      id="Expriance"
+                      placeholder="Expriance"
+                      #Expriance="ngModel"
+                      required
+                    />
+                  </div>
+                  <div *ngIf="Expriance.invalid && (Expriance.dirty || Expriance.touched)" class="alert alert-danger">
+                    <div *ngIf="Expriance.errors?.['required']">Expriance is required.</div></div
+                  >
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label" for="Qualification">Qualification*</label>
+                    <select
+                      type="text"
+                      [(ngModel)]="jobDto.qualification"
+                      class="form-control"
+                      id="Qualification"
+                      placeholder="Select Qualification"
+                      #Qualification="ngModel"
+                      required
+                      (click)="addCustom()"
+                    >
+                      <option selected>Select Qualification</option>
+                      <option value="BE/BTECH">BE/BTECH</option>
+                      <option value="BCS/BSC">BCS/BSC</option>
+                      <option value="BA/BCOM">BA/BCOM</option>
+                      <option value="{{ this.jobDto.qualification == null ? 'Custom' : this.jobDto.qualification }}">
+                        {{ this.jobDto.qualification == null ? 'Custom' : this.jobDto.qualification }}
+                      </option>
+                    </select>
+                  </div>
+                  <div *ngIf="Qualification.invalid && (Qualification.dirty || Qualification.touched)" class="alert alert-danger">
+                    <div *ngIf="Qualification.errors?.['required']">Qualification is required.</div></div
+                  >
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label" for="ReportingTo">Reporting To</label>
+                    <input
+                      type="text"
+                      [(ngModel)]="jobDto.reportingTo"
+                      class="form-control"
+                      id="reportingTo"
+                      placeholder="Add Reporter"
+                      #ReportingTo="ngModel"
+                      required
+                    />
+                  </div>
+                  <div *ngIf="ReportingTo.invalid && (ReportingTo.dirty || ReportingTo.touched)" class="alert alert-danger">
+                    <div *ngIf="ReportingTo.errors?.['required']">Reporting To is required.</div></div
+                  >
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label" for="Skill">Skill*</label>
+                    <input
+                      type="text"
+                      #Skill="ngModel"
+                      required
+                      [(ngModel)]="jobDto.skill"
+                      class="form-control"
+                      id="Skill"
+                      placeholder="Add Skills"
+                    />
+                  </div>
+                  <div *ngIf="Skill.invalid && (Skill.dirty || Skill.touched)" class="alert alert-danger">
+                    <div *ngIf="Skill.errors?.['required']">Skill is required.</div></div
+                  >
+                </div>
+              </div>
+              <div class="form-group mb-3">
+                <label class="form-label" for="company">Description</label>
+                <textarea
+                  type="text"
+                  [(ngModel)]="jobDto.description"
+                  class="form-control"
+                  id="description"
+                  placeholder="Add Description "
+                ></textarea>
+              </div>
+              <div class="form-group mb-3">
+                <label class="form-label" for="company">Roles and responsibility</label>
+                <textarea
+                  type="text"
+                  [(ngModel)]="jobDto.rolesAndResponsibility"
+                  class="form-control"
+                  id="description"
+                  placeholder="Add Roles and responsibility "
+                ></textarea>
+              </div>
+              <div class="d-grid mt-3">
+                <button
+                  type="button"
+                  [disabled]="
+                    !PostionType.valid ||
+                    !Skill.valid ||
+                    !Department.valid ||
+                    !Expriance.valid ||
+                    !NoOfPostions.valid ||
+                    !Qualification.valid ||
+                    !ReportingTo.valid ||
+                    !Title.valid
+                  "
+                  class="btn btn-primary"
+                  (click)="addJob()"
+                  >Add Job</button
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

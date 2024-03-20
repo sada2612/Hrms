@@ -1,0 +1,149 @@
+<div class="row">
+  <!-- [ sample-page ] start -->
+  <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+    <li [ngbNavItem]="1">
+      <button ngbNavLink> <i class="ti ti-users"></i> Interviews</button>
+      <ng-template ngbNavContent>
+        <div class="col-md-12 col-xl-8" style="width: 100%">
+          <h5 class="mb-3 mt-2">All Applicants Details</h5>
+          <div class="DatePicker d-flex flex-row-reverse"
+            ><form class="row row-cols-sm-auto">
+              <div class="col-12">
+                <div class="input-group">
+                  <input class="form-control" placeholder="yyyy-mm-dd" (click)="selectDate()" name="dp" [(ngModel)]="today" />
+                  <button class="btn btn-outline-secondary bi bi-calendar3" (click)="selectDate()" type="button"></button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="card tbl-card mt-2">
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-hover table-borderless mb-0">
+                  <thead>
+                    <tr class="text-center">
+                      <th></th>
+                      <th>Name</th>
+                      <th>Job Title</th>
+                      <th>Email</th>
+                      <th>InterviewDate</th>
+                      <th>InterviewTime</th>
+                      <th>Resume</th>
+                      <th>Status</th>
+                      <th class="text-center">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let task of todayInterviews" class="text-center">
+                      <td>
+                        <div class="flex-shrink-0">
+                          <img *ngIf="task.imgUrl == ''" src="assets/images/user/avatar-2.jpg" alt="user-image" class="user-avtar wid-35" />
+                          <img
+                            *ngIf="task.imgUrl != ''"
+                            src="http://localhost:5102/Uploads/Applicant/{{ task.email }}/{{ task.imgUrl }}"
+                            alt="user-image"
+                            class="user-avtar wid-35"
+                          /> </div
+                      ></td>
+                      <td>{{ task.firstName }}</td>
+                      <td>{{ task.job.postionType }}</td>
+                      <td>{{ task.email }}</td>
+                      <td>{{ task.interviewDate | date }}</td>
+                      <td>{{ TimePipe(task.interviewTime) }}</td>
+
+                      <td
+                        ><a
+                          *ngIf="task.resumeUrl != ''"
+                          href="http://localhost:5102/Uploads/Applicant/{{ task.email }}/{{ task.resumeUrl }}"
+                          target="_blank"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="icon icon-tabler icon-tabler-file-type-pdf"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            stroke-width="2"
+                            stroke="currentColor"
+                            fill="none"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+                            <path d="M5 12v-7a2 2 0 0 1 2 -2h7l5 5v4" />
+                            <path d="M5 18h1.5a1.5 1.5 0 0 0 0 -3h-1.5v6" />
+                            <path d="M17 18h2" />
+                            <path d="M20 15h-3v6" />
+                            <path d="M11 15v6h1a2 2 0 0 0 2 -2v-2a2 2 0 0 0 -2 -2h-1z" />
+                          </svg>
+                        </a>
+                        <a *ngIf="task.resumeUrl == ''">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="icon icon-tabler icon-tabler-file-off"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            stroke-width="2"
+                            stroke="currentColor"
+                            fill="none"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M3 3l18 18" />
+                            <path d="M7 3h7l5 5v7m0 4a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-14" /></svg></a
+                      ></td>
+                      <td [ngSwitch]="task.status">
+                        <span *ngSwitchCase="'Pending'"><i class="ti ti-circle-x text-danger m-r-5"></i>Pending</span>
+                        <span *ngSwitchCase="'Completed'"><i class="ti ti-circle-check text-success m-r-5"></i>Completed</span>
+                        <span *ngSwitchCase="'Scheduled'"><i class="ti ti-circle-check text-warning m-r-5"></i>Scheduled</span>
+                        <span *ngSwitchCase="'Selected'"><i class="ti ti-circle-check text-success m-r-5"></i>Selected</span>
+                        <span *ngSwitchCase="'Rejected'"><i class="ti ti-circle-x text-danger m-r-5"></i>Rejected</span>
+                      </td>
+
+                      <td class="text-center" *ngIf="task.status == 'Scheduled' || 'Completed'">
+                        <a
+                          (click)="FeedBackDone(task.applicantId)"
+                          *ngIf="feedbackcheck(task.applicantId) == true"
+                          class="btn btn-outline-primary ms-2"
+                          ><svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="icon icon-tabler icon-tabler-message-plus"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            stroke-width="2"
+                            stroke="currentColor"
+                            fill="none"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M8 9h8" />
+                            <path d="M8 13h6" />
+                            <path d="M12.01 18.594l-4.01 2.406v-3h-2a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v5.5" />
+                            <path d="M16 19h6" />
+                            <path d="M19 16v6" /></svg
+                        ></a>
+                        <a
+                          (click)="FeedBackview(task.feedBack)"
+                          *ngIf="feedbackcheck(task.applicantId) == false"
+                          class="btn btn-outline-primary ms-2"
+                          ><i class="ti ti-eye"></i
+                        ></a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </li>
+  </ul>
+
+  <div [ngbNavOutlet]="nav" class="mt-2"></div>
+</div>

@@ -1,0 +1,99 @@
+<div class="row">
+  <ul ngbNav #nav="ngbNav" class="nav-tabs">
+    <li [ngbNavItem]="1">
+      <button ngbNavLink
+        ><svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="icon icon-tabler icon-tabler-luggage"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          stroke-width="2"
+          stroke="currentColor"
+          fill="none"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path d="M6 6m0 2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z" />
+          <path d="M9 6v-1a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v1" />
+          <path d="M6 10h12" />
+          <path d="M6 16h12" />
+          <path d="M9 20v1" />
+          <path d="M15 20v1" /></svg
+        >All Holidays 2024</button
+      >
+      <ng-template ngbNavContent>
+        <div class="col-md-12 col-xl-8" style="width: 100%">
+          <h5 class="mb-3 mt-2">All Holidays Details</h5>
+          <div class="card tbl-card">
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-hover table-borderless mb-0">
+                  <thead>
+                    <tr class="text-center">
+                      <th>#</th>
+                      <th>Title</th>
+                      <th>Type</th>
+                      <th>Date</th>
+                      <th>Details</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let task of holidays; index as i" class="text-center">
+                      <td>
+                        <div class="flex-shrink-0">
+                          <img *ngIf="task.imgUrl == ''" src="assets/images/user/avatar-2.jpg" alt="user-image" class="user-avtar wid-35" />
+                          <img
+                            *ngIf="task.imgUrl != ''"
+                            src="http://localhost:5102/Uploads/Holidays/{{ task.title }}/{{ task.imgUrl }}"
+                            alt="user-image"
+                            class="user-avtar wid-35"
+                          /> </div
+                      ></td>
+                      <td>{{ task.title }}</td>
+                      <td>{{ task.type }}</td>
+                      <td>{{ task.startDate | date }}</td>
+                      <td>{{ task.details }}</td>
+                      <td
+                        ><a class="btn btn-outline-primary" (click)="updateHoliday(task.holidayId)"><i class="ti ti-edit"></i></a>
+                        <a class="btn btn-outline-danger m-2" (click)="deleteHoliday(task.holidayId)"><i class="ti ti-trash"></i></a
+                      ></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </li>
+    <li [ngbNavItem]="2">
+      <button ngbNavLink (click)="addHoliday()"
+        ><svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="icon icon-tabler icon-tabler-playlist-add"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          stroke-width="2"
+          stroke="currentColor"
+          fill="none"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path d="M19 8h-14" />
+          <path d="M5 12h9" />
+          <path d="M11 16h-6" />
+          <path d="M15 16h6" />
+          <path d="M18 13v6" />
+        </svg>
+        Add Holiday</button
+      >
+    </li>
+  </ul>
+
+  <div [ngbNavOutlet]="nav" class="mt-2"></div>
+</div>

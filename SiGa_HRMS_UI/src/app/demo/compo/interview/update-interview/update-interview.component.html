@@ -1,0 +1,409 @@
+<div class="row">
+  <div class="col-md-12 col-xl-8" style="width: 100%">
+    <div class="card tbl-card">
+      <div class="card-body">
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb" class="main-breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a [href]="'admin/dashboard'">Home</a></li>
+            <li class="breadcrumb-item"><a [href]="'admin/interviews'">Interviews</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Update Interview</li>
+          </ol>
+        </nav>
+        <!-- /Breadcrumb -->
+        <div class="table-responsive"
+          ><div class="card">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-end mb-4">
+                <h3 class="mb-0"><b>Update Interview</b></h3>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label" for="firstName">First Name*</label>
+                    <input
+                      type="text"
+                      #FirstName="ngModel"
+                      required
+                      [(ngModel)]="updateApplicatentDto.firstName"
+                      class="form-control"
+                      id="firstName"
+                      placeholder="First Name"
+                    />
+                  </div>
+                  <div
+                    *ngIf="FirstName.invalid && (FirstName.dirty || FirstName.touched) && FirstName.control.markAllAsTouched"
+                    class="alert alert-danger"
+                  >
+                    <div *ngIf="FirstName.errors?.['required']">First Name is required.</div></div
+                  >
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label" for="lastName">Last Name*</label>
+                    <input
+                      type="text"
+                      #LastName="ngModel"
+                      required
+                      [(ngModel)]="updateApplicatentDto.lastName"
+                      class="form-control"
+                      id="lastName"
+                      placeholder="Last Name"
+                    />
+                  </div>
+                  <div
+                    *ngIf="LastName.invalid && (LastName.dirty || LastName.touched) && LastName.control.markAllAsTouched"
+                    class="alert alert-danger"
+                  >
+                    <div *ngIf="LastName.errors?.['required']">Last Name is required.</div></div
+                  >
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label" for="email">Email*</label>
+                    <input
+                      type="email"
+                      #Email="ngModel"
+                      required
+                      [(ngModel)]="updateApplicatentDto.email"
+                      class="form-control"
+                      id="email"
+                      placeholder="Email"
+                    />
+                  </div>
+                  <div *ngIf="Email.invalid && (Email.dirty || Email.touched) && Email.control.markAllAsTouched" class="alert alert-danger">
+                    <div *ngIf="Email.errors?.['required']">Email is required.</div></div
+                  >
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label" for="phone">Phone*</label>
+                    <input
+                      type="text"
+                      [(ngModel)]="updateApplicatentDto.phone"
+                      class="form-control"
+                      id="phone"
+                      placeholder="Enter Your Phone Number"
+                      #Phone="ngModel"
+                      required
+                    />
+                  </div>
+                  <div *ngIf="Phone.invalid && (Phone.dirty || Phone.touched) && Phone.control.markAllAsTouched" class="alert alert-danger">
+                    <div *ngIf="Phone.errors?.['required']">Phone is required.</div></div
+                  >
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label" for="expriance">Expriance*</label>
+                    <input
+                      type="text"
+                      [(ngModel)]="updateApplicatentDto.expriance"
+                      class="form-control"
+                      id="expriance"
+                      placeholder="Enter Your Expriance"
+                      #Expriance="ngModel"
+                      required
+                    />
+                  </div>
+                  <div
+                    *ngIf="Expriance.invalid && (Expriance.dirty || Expriance.touched) && Expriance.control.markAllAsTouched"
+                    class="alert alert-danger"
+                  >
+                    <div *ngIf="Expriance.errors?.['required']">Expriance is required.</div></div
+                  >
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label" for="dateOfBirth">Date Of Birth*</label>
+                    <input
+                      type="date"
+                      [(ngModel)]="updateApplicatentDto.dateOfBirth"
+                      class="form-control"
+                      id="dateOfBirth"
+                      placeholder="Select DateOfBirth"
+                      #DateOfBirth="ngModel"
+                      required
+                      max="{{ today }}"
+                    />
+                  </div>
+                  <div
+                    *ngIf="DateOfBirth.invalid && (DateOfBirth.dirty || DateOfBirth.touched) && DateOfBirth.control.markAllAsTouched"
+                    class="alert alert-danger"
+                  >
+                    <div *ngIf="DateOfBirth.errors?.['required']">Date Of Birth is required.</div></div
+                  >
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label" for="interviewDate">Interview Date*</label>
+                    <input
+                      type="date"
+                      [(ngModel)]="updateApplicatentDto.interviewDate"
+                      class="form-control"
+                      id="interviewDate"
+                      placeholder="Select Your InterviewDate"
+                      #InterviewDate="ngModel"
+                      required
+                    />
+                  </div>
+                  <div
+                    *ngIf="
+                      InterviewDate.invalid && (InterviewDate.dirty || InterviewDate.touched) && InterviewDate.control.markAllAsTouched
+                    "
+                    class="alert alert-danger"
+                  >
+                    <div *ngIf="InterviewDate.errors?.['required']">Interview Date is required.</div></div
+                  >
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label" for="interviewTime">Interview Time*</label>
+                    <input
+                      type="time"
+                      step="1"
+                      [(ngModel)]="updateApplicatentDto.interviewTime"
+                      class="form-control"
+                      id="interviewTime"
+                      placeholder="Select InterviewTime"
+                      #InterviewTime="ngModel"
+                      required
+                    />
+                  </div>
+                  <div
+                    *ngIf="
+                      InterviewTime.invalid && (InterviewTime.dirty || InterviewTime.touched) && InterviewTime.control.markAllAsTouched
+                    "
+                    class="alert alert-danger"
+                  >
+                    <div *ngIf="InterviewTime.errors?.['required']">Interview Time is required.</div></div
+                  >
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label" for="address">Address*</label>
+                    <input
+                      type="text"
+                      #Address="ngModel"
+                      required
+                      [(ngModel)]="updateApplicatentDto.address"
+                      class="form-control"
+                      id="address"
+                      placeholder="Address"
+                    />
+                  </div>
+                  <div
+                    *ngIf="Address.invalid && (Address.dirty || Address.touched) && Address.control.markAllAsTouched"
+                    class="alert alert-danger"
+                  >
+                    <div *ngIf="Address.errors?.['required']">Address is required.</div></div
+                  >
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label" for="lastName">Qualification*</label>
+                    <select
+                      type="text"
+                      [(ngModel)]="updateApplicatentDto.qualification"
+                      class="form-control"
+                      id="qualification"
+                      placeholder="Select Qualification"
+                      #Qualification="ngModel"
+                      required
+                      (click)="addCustom()"
+                    >
+                      <option selected>Select Qualification</option>
+                      <option value="1">BE/BTECH</option>
+                      <option value="2">BCS/BSC</option>
+                      <option value="3">BA/BCOM</option>
+                      <option
+                        value="{{ this.updateApplicatentDto.qualification == null ? 'Custom' : this.updateApplicatentDto.qualification }}"
+                      >
+                        {{ this.updateApplicatentDto.qualification == null ? 'Custom' : this.updateApplicatentDto.qualification }}
+                      </option>
+                      <option value="Custom">Custom</option>
+                    </select>
+                  </div>
+                  <div
+                    *ngIf="
+                      Qualification.invalid && (Qualification.dirty || Qualification.touched) && Qualification.control.markAllAsTouched
+                    "
+                    class="alert alert-danger"
+                  >
+                    <div *ngIf="Qualification.errors?.['required']">Qualification is required.</div></div
+                  >
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label" for="JobId">Job Title</label>
+                    <select
+                      type="number"
+                      #JobId="ngModel"
+                      required
+                      [(ngModel)]="updateApplicatentDto.jobId"
+                      class="form-control"
+                      id="JobId"
+                      placeholder="Select Job"
+                    >
+                      <option selected>Select Job</option>
+                      <option *ngFor="let job of jobs" [value]="job.jobId">{{ job.title }}</option>
+                    </select></div
+                  >
+                  <div *ngIf="JobId.invalid && (JobId.dirty || JobId.touched) && JobId.control.markAllAsTouched" class="alert alert-danger">
+                    <div *ngIf="JobId.errors?.['required']">Job Title is required.</div></div
+                  >
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label" for="gender">Gender*</label>
+                    <select
+                      type="text"
+                      #Gender="ngModel"
+                      [(ngModel)]="updateApplicatentDto.gender"
+                      class="form-control"
+                      id="gender"
+                      placeholder="Select gender"
+                    >
+                      <option selected>Select Gender</option>
+                      <option value="male">Male</option>
+                      <option value="female">Female</option>
+                    </select>
+                  </div>
+                  <div
+                    *ngIf="Gender.invalid && (Gender.dirty || Gender.touched) && Gender.control.markAllAsTouched"
+                    class="alert alert-danger"
+                  >
+                    <div *ngIf="Gender.errors?.['required']">Gender is required.</div></div
+                  >
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label" for="empid">Interviewer</label>
+                    <select
+                      type="number"
+                      #empid="ngModel"
+                      required
+                      [(ngModel)]="updateApplicatentDto.employeeId"
+                      class="form-control"
+                      id="empid"
+                      placeholder="Select Interviewer"
+                    >
+                      <option selected>Select Interviewer</option>
+                      <option *ngFor="let emp of emps" [value]="emp.employeeId">{{ emp.firstName }} {{ emp.lastName }}</option>
+                    </select></div
+                  >
+                  <div *ngIf="empid.invalid && (empid.dirty || empid.touched) && empid.control.markAllAsTouched" class="alert alert-danger">
+                    <div *ngIf="empid.errors?.['required']">Interviewer is required.</div></div
+                  >
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group mb-3">
+                    <div class="d-grid" style="margin-top: 30px">
+                      <button
+                        type="button"
+                        class="btn btn-outline-secondary"
+                        style="padding-top: 9px; padding-bottom: 9px"
+                        (click)="selectImage()"
+                        ><svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          class="icon icon-tabler icon-tabler-photo-up"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          stroke-width="2"
+                          stroke="currentColor"
+                          fill="none"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        >
+                          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                          <path d="M15 8h.01" />
+                          <path d="M12.5 21h-6.5a3 3 0 0 1 -3 -3v-12a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v6.5" />
+                          <path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l3.5 3.5" />
+                          <path d="M14 14l1 -1c.679 -.653 1.473 -.829 2.214 -.526" />
+                          <path d="M19 22v-6" />
+                          <path d="M22 19l-3 -3l-3 3" /></svg
+                        >Select Profile Picture</button
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group mb-3">
+                    <div class="d-grid" style="margin-top: 30px">
+                      <button
+                        type="button"
+                        class="btn btn-outline-secondary"
+                        style="padding-top: 9px; padding-bottom: 9px"
+                        (click)="selectResume()"
+                        ><svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          class="icon icon-tabler icon-tabler-photo-up"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          stroke-width="2"
+                          stroke="currentColor"
+                          fill="none"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        >
+                          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                          <path d="M15 8h.01" />
+                          <path d="M12.5 21h-6.5a3 3 0 0 1 -3 -3v-12a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v6.5" />
+                          <path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l3.5 3.5" />
+                          <path d="M14 14l1 -1c.679 -.653 1.473 -.829 2.214 -.526" />
+                          <path d="M19 22v-6" />
+                          <path d="M22 19l-3 -3l-3 3" /></svg
+                        >Select Resume</button
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-grid mt-3">
+                <button
+                  type="button"
+                  [disabled]="
+                    !FirstName.valid ||
+                    !LastName.valid ||
+                    !Phone.valid ||
+                    !Address.valid ||
+                    !Expriance.valid ||
+                    !InterviewTime.valid ||
+                    !Gender.valid ||
+                    !InterviewDate.valid ||
+                    !DateOfBirth.valid ||
+                    !Email.valid ||
+                    !JobId.valid ||
+                    !Qualification.valid
+                  "
+                  (click)="updateApplicant()"
+                  class="btn btn-primary"
+                  >Update Interview Details</button
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

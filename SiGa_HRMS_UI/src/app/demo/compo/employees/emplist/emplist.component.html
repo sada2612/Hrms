@@ -1,0 +1,303 @@
+<div class="row">
+  <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+    <li [ngbNavItem]="1">
+      <button ngbNavLink
+        ><svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="icon icon-tabler icon-tabler-user-square"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          stroke-width="2"
+          stroke="currentColor"
+          fill="none"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path d="M9 10a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
+          <path d="M6 21v-1a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v1" />
+          <path d="M3 5a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-14z" />
+        </svg>
+        All Employees</button
+      >
+      <ng-template ngbNavContent>
+        <div class="col-md-12 col-xl-8" style="width: 100%">
+          <h5 class="mb-3 mt-2">All Employees Details</h5>
+          <div class="card tbl-card">
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-hover table-borderless mb-0">
+                  <thead>
+                    <tr class="text-center">
+                      <th></th>
+                      <th>Id</th>
+                      <th>Name</th>
+                      <th>Designation</th>
+                      <th>Mobile</th>
+                      <th>Email</th>
+                      <th>Joining Date</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let employee of employees" class="text-center">
+                      <td>
+                        <div class="flex-shrink-0">
+                          <img
+                            *ngIf="employee.imgUrl == ''"
+                            src="assets/images/user/avatar-2.jpg"
+                            alt="user-image"
+                            class="user-avtar wid-35"
+                          />
+                          <img
+                            *ngIf="employee.imgUrl != ''"
+                            src="http://localhost:5102/Uploads/Employee/{{ employee.email }}/{{ employee.imgUrl }}"
+                            alt="user-image"
+                            class="user-avtar wid-35"
+                          /> </div
+                      ></td>
+                      <td>{{ employee.employeeId }}</td>
+                      <td>{{ employee.firstName }} {{ employee.lastName }}</td>
+                      <td>{{ employee.designation }}</td>
+                      <td>{{ employee.phone }}</td>
+                      <td>{{ employee.email }}</td>
+                      <td>{{ employee.joinDate | date }}</td>
+                      <td
+                        ><a class="btn btn-outline-success m-2" (click)="DetailsEmployee(employee.employeeId)"
+                          ><svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="icon icon-tabler icons-tabler-outline icon-tabler-user-search"
+                          >
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+                            <path d="M6 21v-2a4 4 0 0 1 4 -4h1.5" />
+                            <path d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+                            <path d="M20.2 20.2l1.8 1.8" /></svg
+                        ></a>
+                        <a class="btn btn-outline-primary" (click)="updateForm(employee.employeeId)"><i class="ti ti-edit"></i></a>
+                        <a class="btn btn-outline-danger m-2" (click)="deleteEmployee(employee.employeeId)"><i class="ti ti-trash"></i></a
+                      ></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </li>
+
+    <li [ngbNavItem]="2">
+      <button ngbNavLink (click)="addEmployee()"
+        ><svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="icon icon-tabler icon-tabler-playlist-add"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          stroke-width="2"
+          stroke="currentColor"
+          fill="none"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path d="M19 8h-14" />
+          <path d="M5 12h9" />
+          <path d="M11 16h-6" />
+          <path d="M15 16h6" />
+          <path d="M18 13v6" />
+        </svg>
+        Add Employee</button
+      >
+      <!-- <ng-template ngbNavContent>
+        <div class="row">
+          <div class="col-md-12 col-xl-8" style="width: 100%">
+            <div class="card tbl-card">
+              <div class="card-body">
+                <div class="table-responsive"
+                  ><div class="card my-5">
+                    <div class="card-body">
+                      <div class="d-flex justify-content-between align-items-end mb-4">
+                        <h3 class="mb-0"><b> Add Employee Information</b></h3>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group mb-3">
+                            <label class="form-label" for="firstName">FirstName*</label>
+                            <input
+                              type="text"
+                              [(ngModel)]="employeeDto.FirstName"
+                              class="form-control"
+                              id="firstName"
+                              placeholder="First Name"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group mb-3">
+                            <label class="form-label" for="lastName">LastName*</label>
+                            <input
+                              type="text"
+                              [(ngModel)]="employeeDto.LastName"
+                              class="form-control"
+                              id="lastName"
+                              placeholder="Last Name"
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group mb-3">
+                            <label class="form-label" for="firstName">Designation*</label>
+                            <select
+                              type="text"
+                              [(ngModel)]="employeeDto.Designation"
+                              class="form-control"
+                              id="qualification"
+                              placeholder="Select Designation"
+                            >
+                              <option selected>Select Designation</option>
+                              <option value="Manager">Manager</option>
+                              <option value="Jr. Software Developer">Jr. Software Developer</option>
+                              <option value="Sr. Software Developer">Sr. Software Developer</option>
+                              <option value="Software Developer">Software Developer</option>
+                              <option value="HR">HR</option>
+                              <option value="Tester">Tester</option>
+                            </select></div
+                          >
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group mb-3">
+                            <label class="form-label" for="lastName">Email*</label>
+                            <input type="email" [(ngModel)]="employeeDto.Email" class="form-control" id="lastName" placeholder="Email" />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group mb-3">
+                            <label class="form-label" for="gender">Gender*</label>
+                            <select
+                              type="text"
+                              [(ngModel)]="employeeDto.Gender"
+                              class="form-control"
+                              id="gender"
+                              placeholder="Select Gender"
+                            >
+                              <option selected>Select Gender</option>
+                              <option value="Male">Male</option>
+                              <option value="Female">Female</option>
+                            </select></div
+                          >
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group mb-3">
+                            <label class="form-label" for="dob">DateOfBirth*</label>
+                            <input
+                              type="date"
+                              [(ngModel)]="employeeDto.DateOfBirth"
+                              class="form-control"
+                              id="dob"
+                              placeholder="DateOfBirth"
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group mb-3">
+                            <label class="form-label" for="expriance">Expriance*</label>
+                            <input
+                              type="text"
+                              [(ngModel)]="employeeDto.Expriance"
+                              class="form-control"
+                              id="expriance"
+                              placeholder="Expriance"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group mb-3">
+                            <label class="form-label" for="phone">Phone*</label>
+                            <input type="text" [(ngModel)]="employeeDto.Phone" class="form-control" id="phone" placeholder="Phone" />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group mb-3">
+                            <label class="form-label" for="address">Address*</label>
+                            <input type="text" [(ngModel)]="employeeDto.Address" class="form-control" id="address" placeholder="Address" />
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group mb-3">
+                            <label class="form-label" for="joinDate">JoinDate*</label>
+                            <input
+                              type="date"
+                              [(ngModel)]="employeeDto.JoinDate"
+                              class="form-control"
+                              id="joinDate"
+                              placeholder="JoinDate"
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group mb-3">
+                            <label class="form-label" for="project">Project</label>
+                            <select
+                              type="text"
+                              [(ngModel)]="employeeDto.ProjectId"
+                              class="form-control"
+                              id="project"
+                              placeholder="Select Project"
+                            >
+                              <option selected>Select Project</option>
+                              <option value="1">Lansta</option>
+                              <option value="2">Neuro</option>
+                              <option value="3">3Shore</option>
+                            </select></div
+                          >
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group mb-3">
+                            <label class="form-label" for="imgUrl">ImgUrl*</label>
+                            <input type="file" [(ngModel)]="employeeDto.ImgUrl" class="form-control" id="imgUrl" placeholder="ImgUrl" />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="d-grid mt-3">
+                        <button type="button" (click)="addEmployee()" class="btn btn-primary">Add Employee</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template> -->
+    </li>
+  </ul>
+
+  <div [ngbNavOutlet]="nav" class="mt-2"></div>
+</div>

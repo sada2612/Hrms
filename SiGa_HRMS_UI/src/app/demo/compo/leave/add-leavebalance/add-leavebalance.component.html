@@ -1,0 +1,116 @@
+<div class="row">
+  <div class="col-md-12 col-xl-8" style="width: 100%">
+    <div class="card tbl-card">
+      <div class="card-body">
+        <nav aria-label="breadcrumb" class="main-breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a [href]="'admin/dashboard'">Home</a></li>
+            <li class="breadcrumb-item"><a [href]="'admin/leave'">LeaveBalance</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Add LeaveBalance</li>
+          </ol>
+        </nav>
+
+        <div class="table-responsive"
+          ><div class="card">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-end mb-4">
+                <h3 class="mb-0"><b> Add LeaveBalance Information</b></h3>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label" for="phone">Employee Name*</label>
+                    <select
+                      type="number"
+                      #employeeId="ngModel"
+                      required
+                      [(ngModel)]="leaveBalanceDto.employeeId"
+                      class="form-control"
+                      id="Employee"
+                      placeholder="Select Employee"
+                    >
+                      <option selected>Select Employee</option>
+                      <option *ngFor="let employee of employees" [value]="employee.employeeId">{{ employee.firstName }}</option>
+                    </select>
+                  </div>
+                  <div *ngIf="employeeId.invalid && (employeeId.dirty || employeeId.touched)" class="alert alert-danger">
+                    <div *ngIf="employeeId.errors?.['required']">Employee Name is required.</div></div
+                  >
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label" for="Entitled">Entitled*</label>
+                    <input
+                      type="text"
+                      [(ngModel)]="leaveBalanceDto.entitled"
+                      class="form-control"
+                      id="Entitled"
+                      placeholder="Entitled"
+                      #Entitled="ngModel"
+                      required
+                    />
+                  </div>
+                  <div *ngIf="Entitled.invalid && (Entitled.dirty || Entitled.touched)" class="alert alert-danger">
+                    <div *ngIf="Entitled.errors?.['required']">Entitled is required.</div></div
+                  >
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label" for="Carried_Forworded">Carried_Forworded*</label>
+                    <input
+                      type="text"
+                      [(ngModel)]="leaveBalanceDto.carried_Forworded"
+                      class="form-control"
+                      id="Carried_Forworded"
+                      placeholder="Carried_Forworded"
+                      #Carried_Forworded="ngModel"
+                      required
+                    />
+                  </div>
+                  <div
+                    *ngIf="Carried_Forworded.invalid && (Carried_Forworded.dirty || Carried_Forworded.touched)"
+                    class="alert alert-danger"
+                  >
+                    <div *ngIf="Carried_Forworded.errors?.['required']">Carried_Forworded is required.</div></div
+                  >
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label" for="Utilized">Utilized*</label>
+                    <input
+                      type="text"
+                      #Utilized="ngModel"
+                      required
+                      [(ngModel)]="leaveBalanceDto.utilized"
+                      class="form-control"
+                      id="Utilized"
+                      placeholder="Last Name"
+                    />
+                  </div>
+                  <div *ngIf="Utilized.invalid && (Utilized.dirty || Utilized.touched)" class="alert alert-danger">
+                    <div *ngIf="Utilized.errors?.['required']">Utilized is required.</div></div
+                  >
+                </div>
+              </div>
+
+              <div class="d-grid mt-3">
+                <button
+                  type="button"
+                  [disabled]="!employeeId.valid || !Entitled.valid || !Carried_Forworded.valid || !Utilized.valid"
+                  class="btn btn-primary"
+                  (click)="addLeaveBalance()"
+                  >Add LeaveBalance</button
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

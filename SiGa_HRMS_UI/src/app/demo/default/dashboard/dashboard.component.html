@@ -1,0 +1,98 @@
+<div class="row">
+  <!-- [ sample-page ] start -->
+  <div class="col-md-6 col-xl-3">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="mb-2 f-w-400 text-muted">Total Employee</h6>
+        <h4 class="mb-3">
+          {{ emplength?.length }}
+          <span class="badge bg-light-primary border border-primary"
+            ><i class="ti ti-trending-up"></i>{{ (this.currentYearEmp?.length / this.emplength?.length) * 100 }}</span
+          >
+        </h4>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-xl-3">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="mb-2 f-w-400 text-muted">Total Attedance</h6>
+        <h4 class="mb-3">
+          {{ leavesData?.length }}
+          <span class="badge bg-light-success border border-success"
+            ><i class="ti ti-trending-up"></i> {{ (leavesData?.length / emplength.length) * 100 }}</span
+          >
+        </h4>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-xl-3">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="mb-2 f-w-400 text-muted">Peanding Levaes Approvals</h6>
+        <h4 class="mb-3">
+          {{ leavelength?.length }}
+          <span class="badge bg-light-warning border border-warning"
+            ><i class="ti ti-trending-down"> </i
+            >{{ (this.leavelength?.length==undefined?0:leavelength?.length / (this.upcomingApproved?.length + this.leavelength?.length==undefined?0:leavelength?.length)) * 100 }}
+          </span>
+        </h4>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6 col-xl-3">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="mb-2 f-w-400 text-muted text-center">Attendance</h6>
+        <h4 class="mb-2 d-flex justify-content-around">
+          <button class="btn btn-outline-secondary">{{ time }}</button>
+          <button *ngIf="cheakIn == true" class="btn btn-primary" (click)="CheckIn()">Check-In</button>
+          <button *ngIf="cheakOut == true" class="btn btn-danger" (click)="CheckOut()">Check-Out</button>
+          <button *ngIf="Completed == true" class="btn btn-success">Completed</button>
+        </h4>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-xl-8 col-lg-6 col-12">
+    <div class="d-flex align-items-center justify-content-between mb-3">
+      <h5 class="mb-0">Unique Visitor</h5>
+      <ul ngbNav aria-busy="true" #nav="ngbNav" class="nav-pills justify-content-end mb-0" (navChange)="onNavChange($event)">
+        <li [ngbNavItem]="1">
+          <a ngbNavLink>Week</a>
+          <ng-template ngbNavContent>
+            <div id="visitor-chart"></div>
+          </ng-template>
+        </li>
+        <li [ngbNavItem]="2">
+          <a ngbNavLink>Month</a>
+          <ng-template ngbNavContent>
+            <div id="visitor-chart-1"></div>
+          </ng-template>
+        </li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <div [ngbNavOutlet]="nav"></div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-4 col-lg-6 col-12">
+    <h5 class="mb-3">SiGa Systems Event</h5>
+    <div class="card">
+      <ngb-carousel>
+        <ng-template ngbSlide *ngFor="let i of event" class="d-flex">
+          <div class="picsum-img-wrapper d-flex justify-content-center" style="height: 600px">
+            <img [src]="i.imgurl" alt="Angular Carousel 1" style="max-width: 514px" />
+          </div>
+          <div class="carousel-caption">
+            <h3 class="text-white">{{ i.name }}</h3>
+            <p>{{ i.date }}.</p>
+          </div>
+        </ng-template>
+      </ngb-carousel>
+    </div>
+  </div>
+</div>

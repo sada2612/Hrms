@@ -1,0 +1,34 @@
+
+
+
+@import 'scss/settings/preset-variables';
+@import 'node_modules/bootstrap/scss/functions';
+@import 'node_modules/bootstrap/scss/variables';
+$pc-body-bg: map-get($preset-colors, 'preset-1', 'body');
+$pc-blue: map-get($preset-colors, 'preset-1', 'primary');
+$pc-secondary: map-get($preset-colors, 'preset-1', 'secondary');
+@import 'scss/settings/custom-variables';
+@import 'scss/settings/theme-variables';
+
+@import 'scss/themes/bootstrap';
+@import 'node_modules/bootstrap/scss/utilities';
+@import 'node_modules/bootstrap/scss/utilities/api';
+
+
+@import 'scss/themes/generic';
+@import 'scss/themes/general';
+
+
+@import 'scss/menu/menu-lite';
+
+
+@import 'scss/themes/layouts/layouts.scss';
+
+
+@import 'scss/themes/components/components';
+
+
+@import 'scss/themes/pages/page';
+
+
+@import 'scss/fonts/tabler-icons.min.css';

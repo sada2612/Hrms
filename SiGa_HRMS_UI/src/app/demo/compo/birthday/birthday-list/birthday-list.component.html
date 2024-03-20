@@ -1,0 +1,24 @@
+<div id="header">
+  <h2>Birthdays</h2>
+  <p>Siga Systems</p>
+</div>
+<div class="container">
+  <div *ngFor="let Employee of employees; index as i" class="card">
+    <div class="card-image">
+      <img src="{{ birthdayimg(Employee) }}" alt="Birathday" />
+    </div>
+    <div class="card-text">
+      <p class="card-meal-type">{{ Employee.dateOfBirth | date }}</p>
+      <h2 class="card-title text-white">{{ Employee.firstName }} {{ Employee.lastName }}</h2>
+      <div class="card-body text">
+        <h1 class="text-white"></h1>
+        <p><b>Age : </b>{{ calculateAge(Employee.dateOfBirth) }}</p>
+        <p class="muted">{{ Employee.designation }}</p>
+        <br />
+        <p>Happy BirthDay</p>
+        <p class="muted">- SiGa Systems</p>
+      </div>
+    </div>
+    <div class="card-price">#{{ i + 1 }}</div>
+  </div>
+</div>

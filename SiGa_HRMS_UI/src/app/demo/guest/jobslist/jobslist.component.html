@@ -1,0 +1,50 @@
+<div class="row">
+  <ul ngbNav #nav="ngbNav" class="nav-tabs">
+    <li [ngbNavItem]="1">
+      <button ngbNavLink
+        ><svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="icon icon-tabler icon-tabler-world"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          stroke-width="2"
+          stroke="currentColor"
+          fill="none"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" />
+          <path d="M3.6 9h16.8" />
+          <path d="M3.6 15h16.8" />
+          <path d="M11.5 3a17 17 0 0 0 0 18" />
+          <path d="M12.5 3a17 17 0 0 1 0 18" /></svg
+        >Jobs</button
+      >
+      <ng-template ngbNavContent>
+        <h5 class="mb-3 mt-2">All Job Details</h5>
+        <div class="row">
+          <div *ngFor="let job of jobs" class="gg col-md-6 col-lg-4 mb-3 mb-sm-0 text-center">
+            <div class="card">
+              <div class="card-body">
+                <div class="card-header">
+                  <h5 class="card-title text-center">{{ job.title }}</h5></div
+                >
+                <p class="card-text mt-3"><b>Postion : </b>{{ job.postionType }}</p>
+                <p class="card-text"><b>Qualification : </b>{{ job.qualification }}</p>
+                <p class="card-text"><b>Skil : </b>{{ job.skill }}</p>
+                <p class="card-text"><b>No Of Postions : </b>{{ job.noOfPostions }}</p>
+                <p class="card-text"><b>Expriance : </b>{{ job.expriance }}</p>
+                <p class="card-text"><b>Description : </b>{{ job.description }}</p>
+                <p class="text-mute mt-4">Last updated {{ job.postingDate | date }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </li>
+  </ul>
+
+  <div [ngbNavOutlet]="nav" class="mt-2"></div>
+</div>

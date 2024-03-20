@@ -1,0 +1,146 @@
+<div class="row">
+  <div class="col-md-12 col-xl-8" style="width: 100%">
+    <div class="card tbl-card">
+      <div class="card-body">
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb" class="main-breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a [href]="'admin/dashboard'">Home</a></li>
+            <li class="breadcrumb-item"><a [href]="'admin/projects'">Project</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Add Project</li>
+          </ol>
+        </nav>
+        <!-- /Breadcrumb -->
+        <div class="table-responsive"
+          ><div class="card">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-end mb-4">
+                <h3 class="mb-0"><b> Add Project Information</b></h3>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label" for="firstName">Project Name*</label>
+                    <input
+                      type="text"
+                      [(ngModel)]="projectDto.projectName"
+                      class="form-control"
+                      id="firstName"
+                      placeholder="Project Name"
+                      #Name="ngModel"
+                      required
+                    />
+                  </div>
+                  <div *ngIf="Name.invalid && (Name.dirty || Name.touched)" class="alert alert-danger">
+                    <div *ngIf="Name.errors?.['required']">Name is required.</div></div
+                  >
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label" for="onBoradDate">OnBorad Date*</label>
+                    <input
+                      type="date"
+                      [(ngModel)]="projectDto.onBoradDate"
+                      class="form-control"
+                      id="onBoradDate"
+                      placeholder="OnBoradDate"
+                      #OnBoradDate="ngModel"
+                      required
+                    />
+                  </div>
+                  <div *ngIf="OnBoradDate.invalid && (OnBoradDate.dirty || OnBoradDate.touched)" class="alert alert-danger">
+                    <div *ngIf="OnBoradDate.errors?.['required']">OnBorad Date is required.</div></div
+                  >
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label" for="email">Email</label>
+                    <input
+                      type="text"
+                      #Email="ngModel"
+                      required
+                      [(ngModel)]="projectDto.email"
+                      class="form-control"
+                      id="email"
+                      placeholder="Email"
+                      (blur)="EmailValidate()"
+                    />
+                  </div>
+                  <div *ngIf="Email.invalid && (Email.dirty || Email.touched)" class="alert alert-danger">
+                    <div *ngIf="Email.errors?.['required']">Email is required.</div></div
+                  >
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label" for="Status">Status</label>
+                    <select type="text" [(ngModel)]="projectDto.status" class="form-control" id="Status">
+                      <option value="Start">Start</option>
+                      <option value="Closed">Closed</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label" for="project">Client</label>
+                    <select type="number" [(ngModel)]="projectDto.clientId" class="form-control" id="project" placeholder="Select Project">
+                      <option selected>Select Project</option>
+                      <option *ngFor="let client of clients" [value]="client.clientId">{{ client.firstName }}</option>
+                    </select></div
+                  >
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group mb-3">
+                    <div class="d-grid" style="margin-top: 30px">
+                      <button
+                        type="button"
+                        class="btn btn-outline-secondary"
+                        style="padding-top: 9px; padding-bottom: 9px"
+                        (click)="selectImage()"
+                        ><svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          class="icon icon-tabler icon-tabler-photo-up"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          stroke-width="2"
+                          stroke="currentColor"
+                          fill="none"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        >
+                          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                          <path d="M15 8h.01" />
+                          <path d="M12.5 21h-6.5a3 3 0 0 1 -3 -3v-12a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v6.5" />
+                          <path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l3.5 3.5" />
+                          <path d="M14 14l1 -1c.679 -.653 1.473 -.829 2.214 -.526" />
+                          <path d="M19 22v-6" />
+                          <path d="M22 19l-3 -3l-3 3" /></svg
+                        >Select Project Logo</button
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-grid mt-3">
+                <button
+                  type="button"
+                  [disabled]="!Name.valid || !OnBoradDate.valid || !Email.valid"
+                  (click)="addProject()"
+                  class="btn btn-primary"
+                  >Add Project</button
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

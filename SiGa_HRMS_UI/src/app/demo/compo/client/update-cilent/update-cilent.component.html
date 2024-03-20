@@ -1,0 +1,216 @@
+<div class="row">
+  <div class="col-md-12 col-xl-8" style="width: 100%">
+    <div class="card tbl-card">
+      <div class="card-body">
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb" class="main-breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a [href]="'admin/dashboard'">Home</a></li>
+            <li class="breadcrumb-item"><a [href]="'admin/clients'">Client</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Update Client</li>
+          </ol>
+        </nav>
+        <!-- /Breadcrumb -->
+        <div class="table-responsive"
+          ><div class="card">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-end mb-4">
+                <h3 class="mb-0"><b> Update Client Information</b></h3>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label" for="firstName">First Name*</label>
+                    <input
+                      type="text"
+                      [(ngModel)]="updateClientDto.firstName"
+                      class="form-control"
+                      id="firstName"
+                      placeholder="First Name"
+                      #FirstName="ngModel"
+                      required
+                    />
+                  </div>
+                  <div *ngIf="FirstName.invalid && (FirstName.dirty || FirstName.touched)" class="alert alert-danger">
+                    <div *ngIf="FirstName.errors?.['required']">First Name is required.</div></div
+                  >
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label" for="lastName">Last Name*</label>
+                    <input
+                      type="text"
+                      [(ngModel)]="updateClientDto.lastName"
+                      class="form-control"
+                      id="lastName"
+                      placeholder="Last Name"
+                      #LastName="ngModel"
+                      required
+                    />
+                  </div>
+                  <div *ngIf="LastName.invalid && (LastName.dirty || LastName.touched)" class="alert alert-danger">
+                    <div *ngIf="LastName.errors?.['required']">Last Name is required.</div></div
+                  >
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label" for="email">Email*</label>
+                    <input
+                      type="email"
+                      #Email="ngModel"
+                      required
+                      [(ngModel)]="updateClientDto.email"
+                      class="form-control"
+                      id="email"
+                      placeholder="Email"
+                    />
+                  </div>
+                  <div *ngIf="Email.invalid && (Email.dirty || Email.touched)" class="alert alert-danger">
+                    <div *ngIf="Email.errors?.['required']">Email is required.</div></div
+                  >
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label" for="gender">Gender*</label>
+                    <select type="text" #Gender="ngModel" required [(ngModel)]="updateClientDto.gender" class="form-control" id="gender">
+                      <option selected>Select Gender</option>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                    </select>
+                  </div>
+                  <div *ngIf="Gender.invalid && (Gender.dirty || Gender.touched)" class="alert alert-danger">
+                    <div *ngIf="Gender.errors?.['required']">Gender is required.</div></div
+                  >
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label" for="phone">Phone*</label>
+                    <input
+                      type="text"
+                      #Phone="ngModel"
+                      required
+                      [(ngModel)]="updateClientDto.phone"
+                      class="form-control"
+                      id="phone"
+                      placeholder="Phone"
+                    />
+                  </div>
+                  <div *ngIf="Phone.invalid && (Phone.dirty || Phone.touched)" class="alert alert-danger">
+                    <div *ngIf="Phone.errors?.['required']">Phone is required.</div></div
+                  >
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label" for="country">Country*</label>
+                    <input
+                      type="text"
+                      #Country="ngModel"
+                      required
+                      [(ngModel)]="updateClientDto.country"
+                      class="form-control"
+                      id="country"
+                    />
+                  </div>
+                  <div *ngIf="Country.invalid && (Country.dirty || Country.touched)" class="alert alert-danger">
+                    <div *ngIf="Country.errors?.['required']">Country is required.</div></div
+                  >
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label" for="address">Address</label>
+                    <input
+                      type="text"
+                      #Address="ngModel"
+                      [(ngModel)]="updateClientDto.address"
+                      class="form-control"
+                      id="address"
+                      placeholder="Address"
+                    />
+                  </div>
+                  <div *ngIf="Address.invalid && (Address.dirty || Address.touched)" class="alert alert-danger">
+                    <div *ngIf="Address.errors?.['required']">Address is required.</div></div
+                  >
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label" for="joinDate">Join Date</label>
+                    <input
+                      type="date"
+                      #JoinDate="ngModel"
+                      [(ngModel)]="updateClientDto.joinDate"
+                      class="form-control"
+                      id="joinDate"
+                      placeholder="JoinDate"
+                    />
+                  </div>
+                  <div *ngIf="JoinDate.invalid && (JoinDate.dirty || JoinDate.touched)" class="alert alert-danger">
+                    <div *ngIf="JoinDate.errors?.['required']">Join Date is required.</div></div
+                  >
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group mb-3">
+                  <div class="d-grid" style="margin-top: 30px">
+                    <button
+                      type="button"
+                      class="btn btn-outline-secondary"
+                      style="padding-top: 9px; padding-bottom: 9px"
+                      (click)="selectImage()"
+                      ><svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="icon icon-tabler icon-tabler-photo-up"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        stroke-width="2"
+                        stroke="currentColor"
+                        fill="none"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M15 8h.01" />
+                        <path d="M12.5 21h-6.5a3 3 0 0 1 -3 -3v-12a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v6.5" />
+                        <path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l3.5 3.5" />
+                        <path d="M14 14l1 -1c.679 -.653 1.473 -.829 2.214 -.526" />
+                        <path d="M19 22v-6" />
+                        <path d="M22 19l-3 -3l-3 3" /></svg
+                      >Select Client Picture</button
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="d-grid mt-3">
+                <button
+                  type="button"
+                  [disabled]="
+                    !FirstName.valid ||
+                    !LastName.valid ||
+                    !Phone.valid ||
+                    !Address.valid ||
+                    !JoinDate.valid ||
+                    !Gender.valid ||
+                    !Country.valid ||
+                    !Email.valid
+                  "
+                  (click)="updateClient()"
+                  class="btn btn-primary"
+                  >Add Client</button
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

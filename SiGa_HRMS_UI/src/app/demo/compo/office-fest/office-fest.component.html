@@ -1,0 +1,86 @@
+<div class="row">
+  <div class="col-md-12 col-xl-8" style="width: 100%">
+    <div class="card tbl-card">
+      <div class="card-body">
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb" class="main-breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a [href]="'admin/dashboard'">Home</a></li>
+            <li class="breadcrumb-item"><a [href]="'admin/fest'">Office Fest</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Add Office Fest</li>
+          </ol>
+        </nav>
+        <!-- /Breadcrumb -->
+        <div class="table-responsive"
+          ><div class="card">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-end mb-4">
+                <h3 class="mb-0"><b> Add Office Fest Information</b></h3>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label" for="firstName">Fest Name*</label>
+                    <input
+                      type="text"
+                      #name="ngModel"
+                      [(ngModel)]="festDto.name"
+                      class="form-control"
+                      id="Title"
+                      placeholder="Title"
+                      required
+                    />
+                  </div>
+                  <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+                    <div *ngIf="name.errors?.['required']">Name is required.</div></div
+                  >
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label" for="lastName">Date*</label>
+                    <input
+                      type="date"
+                      #date="ngModel"
+                      [(ngModel)]="festDto.date"
+                      class="form-control"
+                      id="Date"
+                      placeholder="Date"
+                      required
+                    />
+                  </div>
+                  <div *ngIf="date.invalid && (date.dirty || date.touched)" class="alert alert-danger">
+                    <div *ngIf="date.errors?.['required']">Date is required.</div></div
+                  >
+                </div>
+              </div>
+
+              <div class="row d-flex justify-content-center">
+                <div class="form-group col-lg-6">
+                  <label class="form-label" for="Photos">Photos*</label>
+                  <div class="dropzone dropzone-previews" id="profilbildDropzone">
+                    <div class="fallback">
+                      <input
+                        name="file"
+                        type="file"
+                        (change)="onFileChange($event)"
+                        multiple="multiple"
+                        accept="image/png, image/gif, image/jpeg"
+                      />
+                      <span class="text-secondary">(Upload file 514*600 px)</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-grid mt-3">
+                <button type="button" [disabled]="!name.valid || !date.valid" class="btn btn-primary" (click)="AddFest()"
+                  >Add Office Fest</button
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

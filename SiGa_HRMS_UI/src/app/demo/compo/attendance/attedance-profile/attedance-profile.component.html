@@ -1,0 +1,149 @@
+<div class="container">
+  <div class="main-body">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="main-breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="admin/dashboard">Home</a></li>
+        <li class="breadcrumb-item"><a href="admin/attendancelist">Attendance</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Today Attendance</li>
+      </ol>
+    </nav>
+    <!-- /Breadcrumb -->
+
+    <div class="d-flex row">
+      <div class="col-lg-8 col-md-12 col-sm-12">
+        <h5 class="mb-3 text-center">Attendance Report</h5>
+        <div class="DatePicker d-flex flex-row-reverse"
+          ><form class="row row-cols-sm-auto">
+            <div class="col-12">
+              <div class="input-group">
+                <input class="form-control" placeholder="yyyy-mm-dd" (click)="selectDate()" name="dp" [(ngModel)]="today" />
+                <button class="btn btn-outline-secondary bi bi-calendar3" (click)="selectDate()" type="button"></button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="card mt-2">
+          <div class="card-body">
+            <div class="d-flex justify-content-between"
+              ><div
+                ><h6 class="mb-2 f-w-400 text-muted">This Week Working Hours</h6>
+                <h3 class="mb-0">{{ convertDecimalToTime(sumWorking) }} <i class="ti ti-clock"></i></h3
+              ></div>
+            </div>
+            <apx-chart
+              [series]="chartOptions.series"
+              [chart]="chartOptions.chart"
+              [dataLabels]="chartOptions.dataLabels"
+              [legend]="chartOptions.legend"
+              [xaxis]="chartOptions.xaxis"
+              [colors]="chartOptions.colors"
+              [stroke]="chartOptions.stroke"
+              [plotOptions]="chartOptions.plotOptions"
+            ></apx-chart>
+          </div>
+          <div class="d-flex justify-content-around mb-3">
+            <button class="btn btn-outline-secondary" (click)="BackWeek()"
+              ><svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="icon icon-tabler icon-tabler-chevrons-left"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                stroke-width="2"
+                stroke="currentColor"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M11 7l-5 5l5 5" />
+                <path d="M17 7l-5 5l5 5" /></svg
+            ></button>
+            <button class="btn btn-outline-secondary" (click)="NextWeek()"
+              ><svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="icon icon-tabler icon-tabler-chevrons-right"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                stroke-width="2"
+                stroke="currentColor"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M7 7l5 5l-5 5" />
+                <path d="M13 7l5 5l-5 5" /></svg
+            ></button>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-12 col-sm-12">
+        <h5 class="mb-3 text-center">Today Attendance</h5>
+        <div class="card">
+          <div class="list-group list-group-flush">
+            <a class="list-group-item list-group-item-action text-center">
+              <div class="flex-grow-1 ms-3">
+                <div>
+                  <div class="flex-shrink-0">
+                    <img *ngIf="employee.imgUrl == ''" src="assets/images/user/avatar-2.jpg" alt="user-image" class="user-avtar wid-35" />
+                    <img
+                      *ngIf="employee.imgUrl != ''"
+                      src="http://localhost:5102/Uploads/Employee/{{ employee.email }}/{{ employee.imgUrl }}"
+                      alt="user-image"
+                      class="user-avtar wid-35"
+                    /> </div
+                ></div>
+              </div>
+
+              <div class="flex-grow-1 ms-3 mt-3">
+                <h6 class="mb-1">{{ employee.firstName }} {{ employee.lastName }}</h6>
+              </div>
+            </a>
+          </div>
+          <div class="d-flex justify-content-around mt-3 mb-3">
+            <button class="btn btn-outline-secondary p-2"
+              ><b>{{ time }}</b></button
+            >
+            <span *ngIf="employee.email == role"
+              ><button *ngIf="cheakIn && !cheakOut" class="btn btn-primary">Check-In</button>
+              <button *ngIf="cheakOut" class="btn btn-danger" (click)="CheckOut()">Check-Out</button>
+              <button *ngIf="Completed" class="btn btn-success">Completed</button></span
+            >
+          </div>
+          <div class="list-group list-group-flush">
+            <a class="list-group-item list-group-item-action">
+              <div class="d-flex">
+                <div class="flex-grow-1 ms-3">
+                  <h6 class="mb-1">Check In</h6>
+                </div>
+                <div class="flex-shrink-0 text-end">
+                  <h6 class="mb-1">{{ attendance.checkIn == null ? '00:00:00' : attendance.checkIn }}</h6>
+                </div>
+              </div>
+              <div class="d-flex mt-3">
+                <div class="flex-grow-1 ms-3">
+                  <h6 class="mb-1">Check Out Time</h6>
+                </div>
+                <div class="flex-shrink-0 text-end">
+                  <h6 class="mb-1">{{ attendance.checkOut == null ? '00:00:00' : attendance.checkOut }}</h6>
+                </div>
+              </div>
+              <hr />
+              <div class="d-flex mt-3">
+                <div class="flex-grow-1 ms-3">
+                  <h6 class="mb-1">Total</h6>
+                </div>
+                <div class="flex-shrink-0 text-end">
+                  <h6 class="mb-1">{{ attendance.workingHours == null ? '00:00:00' : attendance.workingHours }}</h6>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,46 @@
+<div class="col-md-12 col-xl-8" style="width: 100%">
+  <h5 class="mb-3 mt-2">All Employees Details</h5>
+  <div class="card tbl-card">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-hover table-borderless mb-0">
+          <thead>
+            <tr class="text-center">
+              <th></th>
+              <th>Name</th>
+              <th>Designation</th>
+              <th>Mobile</th>
+              <th>Personal Email</th>
+              <th>Emergency Number</th>
+              <th>Project</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let employee of employees" class="text-center">
+              <td>
+                <div class="flex-shrink-0">
+                  <img *ngIf="employee.imgUrl == ''" src="assets/images/user/avatar-2.jpg" alt="user-image" class="user-avtar wid-35" />
+                  <img
+                    *ngIf="employee.imgUrl != ''"
+                    src="http://localhost:5102/Uploads/Employee/{{ employee.email }}/{{ employee.imgUrl }}"
+                    alt="user-image"
+                    class="user-avtar wid-35"
+                  /> </div
+              ></td>
+              <td>{{ employee.firstName }} {{ employee.lastName }}</td>
+              <td>{{ employee.designation }}</td>
+              <td>{{ employee.phone }}</td>
+              <td>{{ employee.personalEmail == null ? 'Not Updated' : employee.personalEmail }}</td>
+              <td>{{ employee.emergencyPhone == null ? 'Not Updated' : employee.emergencyPhone }}</td>
+              <td>{{ employee.project == null ? 'Not Assiged' : employee.project.projectName }}</td>
+              <td *ngIf="employee.slackUrl != null">
+                <a class="btn btn-primary" href="{{ employee.slackUrl }}" target="_blank">Massage</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,214 @@
+<div class="row">
+  <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+    <li [ngbNavItem]="1">
+      <button ngbNavLink>Today's Leaves</button>
+      <ng-template ngbNavContent>
+        <div class="col-md-12 col-xl-8" style="width: 100%">
+          <div class="d-flex justify-content-between"
+            ><h5 class="mb-3 p-2">Today's Leaves</h5>
+            <div class="DatePicker d-flex flex-row-reverse"
+              ><form class="row row-cols-sm-auto">
+                <div class="col-12">
+                  <div class="input-group">
+                    <input class="form-control" placeholder="yyyy-mm-dd" (click)="selectDate()" name="dp" [(ngModel)]="today" />
+                    <button class="btn btn-outline-secondary bi bi-calendar3" (click)="selectDate()" type="button"></button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="card tbl-card">
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-hover table-borderless mb-0">
+                  <thead>
+                    <tr class="text-center">
+                      <th></th>
+                      <th>Name</th>
+                      <th>Apply Date</th>
+                      <th>Leave Type</th>
+                      <th>Form Date</th>
+                      <th>To Date</th>
+                      <th>Leave Length</th>
+                      <th>Status</th>
+                      <th>Leave Reason</th>
+                      <th *ngIf="!role">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let task of leavedata; index as i" class="text-center">
+                      <td>
+                        <div class="flex-shrink-0">
+                          <img
+                            *ngIf="task.employee.imgUrl == ''"
+                            src="assets/images/user/avatar-2.jpg"
+                            alt="user-image"
+                            class="user-avtar wid-35"
+                          />
+                          <img
+                            *ngIf="task.employee.imgUrl != ''"
+                            src="http://localhost:5102/Uploads/Employee/{{ task.employee.email }}/{{ task.employee.imgUrl }}"
+                            alt="user-image"
+                            class="user-avtar wid-35"
+                          />
+                        </div>
+                      </td>
+                      <td>{{ task.employee.firstName }}</td>
+                      <td>{{ task.applyDate | date }}</td>
+                      <td>{{ task.leaveType }}</td>
+                      <td>{{ task.formDate | date }}</td>
+                      <td>{{ task.toDate | date }}</td>
+                      <td>{{ task.leaveLength }}</td>
+
+                      <td [ngSwitch]="task.status">
+                        <span *ngSwitchCase="'Rejected'"><i class="ti ti-circle-x text-danger m-r-5"></i>Rejected</span>
+                        <span *ngSwitchCase="'Approved'"><i class="ti ti-circle-check text-success m-r-5"></i>Approved</span>
+                        <span *ngSwitchCase="'Initiated'"><i class="ti ti-circle-check text-warning m-r-5"></i>Initiated</span>
+                      </td>
+                      <td
+                        ><a class="btn btn-outline-primary" (click)="leaveDetile(task.details)"><i class="ti ti-eye"></i></a
+                      ></td>
+                      <td *ngIf="task.status != 'Approved' && task.status != 'Rejected'"
+                        ><span *ngIf="role">
+                          <a
+                            class="btn btn-outline-primary"
+                            data-bs-toggle="tooltip"
+                            data-bs-placement="top"
+                            title="Apporve"
+                            (click)="Approve(task.employeeId, task.employee.firstName, task.leaveType)"
+                            ><i class="ti ti-check"></i
+                          ></a>
+                          <a
+                            class="btn btn-outline-danger m-2"
+                            data-bs-toggle="tooltip"
+                            data-bs-placement="top"
+                            title="Denied"
+                            (click)="Reject(task.employeeId, task.leaveId)"
+                            ><i class="ti ti-x"></i
+                          ></a>
+                        </span>
+
+                        <span *ngIf="task.employee.email == email">
+                          <a class="btn btn-outline-primary" (click)="UpdateLeave(task.leaveId)"><i class="ti ti-edit"></i></a>
+                          <a class="btn btn-outline-danger m-2" (click)="DeleteLeave(task.leaveId)"><i class="ti ti-trash"></i></a>
+                        </span>
+                      </td>
+                      <td>
+                        <a
+                          *ngIf="task.status == 'Approved' && ValidateDelete(task.formDate) == false && role"
+                          class="btn btn-outline-danger ms-2"
+                          (click)="Deleteleave(task.leaveId, task.employee.employeeId)"
+                          ><i class="ti ti-trash"></i
+                        ></a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </li>
+    <li [ngbNavItem]="2">
+      <button ngbNavLink>Leaves Balance</button>
+      <ng-template ngbNavContent>
+        <div class="row">
+          <div class="col-md-12 col-xl-8" style="width: 100%">
+            <div class="d-flex justify-content-between mt-3"
+              ><h5 class="mb-3">Leave Balances</h5>
+              <a
+                class="btn btn-primary d-none d-sm-inline-block text-white"
+                data-bs-toggle="modal"
+                data-bs-target="#modal-report"
+                (click)="addLeaveBalance()"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="icon"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  stroke-width="2"
+                  stroke="currentColor"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <line x1="12" y1="5" x2="12" y2="19" />
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                </svg>
+                Add Leave Balance
+              </a>
+            </div>
+            <div class="card tbl-card mt-3">
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-hover table-borderless mb-0">
+                    <thead>
+                      <tr class="text-center">
+                        <th></th>
+                        <th>Name</th>
+                        <th>Entitled</th>
+                        <th>Utilized</th>
+                        <th>Available Leaves</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let task of Leavesbalances" class="text-center">
+                        <td>
+                          <div class="flex-shrink-0">
+                            <img
+                              *ngIf="task.employee.imgUrl == ''"
+                              src="assets/images/user/avatar-2.jpg"
+                              alt="user-image"
+                              class="user-avtar wid-35"
+                            />
+                            <img
+                              *ngIf="task.employee.imgUrl != ''"
+                              src="http://localhost:5102/Uploads/Employee/{{ task.employee.email }}/{{ task.employee.imgUrl }}"
+                              alt="user-image"
+                              class="user-avtar wid-35"
+                            /> </div
+                        ></td>
+                        <td>{{ task.employee.firstName }}</td>
+                        <td>{{ task.carried_Forworded + task.entitled }}</td>
+                        <td>{{ task.utilized }}</td>
+                        <td>{{ task.carried_Forworded + task.entitled - task.utilized }}</td>
+
+                        <td *ngIf="task.entitled + task.carried_Forworded - task.utilized <= 0; else elseBlock">
+                          <span><i class="ti ti-circle-x text-danger m-r-5"></i>Not Available</span>
+                        </td>
+                        <ng-template #elseBlock>
+                          <td
+                            ><span><i class="ti ti-circle-check text-success m-r-5"></i>Available</span></td
+                          >
+                        </ng-template>
+                        <td
+                          ><a class="btn btn-outline-primary" (click)="updateLeavesbalance(task.employee.employeeId)"
+                            ><i class="ti ti-edit"></i
+                          ></a>
+                          <a class="btn btn-outline-danger m-2" (click)="deleteLeavesbalance(task.leaveBalanceId)"
+                            ><i class="ti ti-trash"></i></a
+                        ></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </li>
+
+    <li [ngbNavItem]="3" *ngIf="!role">
+      <button ngbNavLink (click)="addLeave()">Apply Leave</button>
+    </li>
+  </ul>
+
+  <div [ngbNavOutlet]="nav" class="mt-2"></div>
+</div>

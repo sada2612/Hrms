@@ -1,0 +1,120 @@
+<ul class="list-unstyled">
+  <li class="pc-h-item header-user-profile">
+    <a class="arrow-none me-0 text-dark" (click)="Calendar()">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="icon icon-tabler icon-tabler-calendar"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        stroke-width="2"
+        stroke="currentColor"
+        fill="none"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+        <path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z" />
+        <path d="M16 3v4" />
+        <path d="M8 3v4" />
+        <path d="M4 11h16" />
+        <path d="M11 15h1" />
+        <path d="M12 15v3" />
+      </svg>
+    </a>
+  </li>
+  <li class="dropdown pc-h-item" ngbDropdown>
+    <a class="pc-head-link dropdown-toggle arrow-none me-0" ngbDropdownToggle (click)="notificationshow()">
+      <i class="ti ti-bell"></i>
+      <span class="badge bg-success pc-h-badge">{{ notification.length }}</span>
+    </a>
+    <div class="dropdown-menu dropdown-notification dropdown-menu-end pc-h-dropdown" *ngIf="NotifictionBar == true" ngbDropdownMenu>
+      <div class="dropdown-header d-flex align-items-center justify-content-between">
+        <h5 class="m-0">Notification</h5>
+        <a class="pc-head-link bg-transparent" (click)="notificationRead()"><i class="ti ti-circle-check text-success"></i></a>
+      </div>
+      <div class="dropdown-divider"></div>
+      <ng-scrollbar style="height: calc(50vh - 200px)" visibility="hover">
+        <div class="dropdown-header px-0 text-wrap header-notification-scroll">
+          <div class="list-group list-group-flush w-100">
+            <a
+              *ngFor="let Notification of notification"
+              class="list-group-item list-group-item-action"
+              (click)="NevigateToNotification(Notification.Link)"
+            >
+              <div class="d-flex">
+                <div class="flex-shrink-0">
+                  <div class="user-avtar bg-light-{{ Notification.color }}">
+                    <i class="{{ Notification.Icon }}"></i>
+                  </div>
+                </div>
+                <div class="flex-grow-1 ms-1">
+                  <span class="float-end text-muted">{{ Notification.Time }}</span>
+                  <p class="text-body mb-1"> {{ Notification.Name }}</p>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </ng-scrollbar>
+      <div class="dropdown-divider"></div>
+      <div class="text-center py-2">
+        <a class="link-primary" (click)="notificationRead()">Hide</a>
+      </div>
+    </div>
+  </li>
+  <li class="dropdown pc-h-item header-user-profile" ngbDropdown>
+    <a class="pc-head-link dropdown-toggle arrow-none me-0" ngbDropdownToggle>
+      <img src="{{ birthdayimg(employee) }}" alt="user-image" class="user-avtar" />
+      <span style="cursor: pointer">{{ employee?.firstName }} {{ employee?.lastName }}</span>
+    </a>
+    <div class="dropdown-menu dropdown-user-profile dropdown-menu-end pc-h-dropdown" ngbDropdownMenu>
+      <div class="dropdown-header">
+        <div class="d-flex mb-1">
+          <div class="flex-shrink-0">
+            <img src="{{ birthdayimg(employee) }}" alt="user-image" class="user-avtar wid-35" />
+          </div>
+          <div class="flex-grow-1 ms-3">
+            <h6 class="mb-1">{{ employee?.firstName }} {{ employee?.lastName }}</h6>
+            <span>{{ employee?.designation }}</span>
+          </div>
+          <a class="pc-head-link bg-transparent" style="cursor: pointer" (click)="LogOut()"><i class="ti ti-power text-danger"></i></a>
+        </div>
+      </div>
+      <ul ngbNav #nav="ngbNav" class="nav drp-tabs nav-fill nav-tabs">
+        <li ngbNavItem="1">
+          <a ngbNavLink><i class="ti ti-user"></i> Profile</a>
+          <ng-template ngbNavContent>
+            <div *ngFor="let task of profile">
+              <a *ngIf="task.title == 'View Profile'" class="dropdown-item" (click)="ViewProfile()">
+                <i class="ti ti-user"></i>
+                <span style="cursor: pointer">View Profile</span>
+              </a>
+              <a *ngIf="task.title == 'Edit Profile'" class="dropdown-item" (click)="EditProfile()">
+                <i class="ti ti-edit-circle"></i>
+                <span style="cursor: pointer">Edit Profile</span>
+              </a>
+
+              <a *ngIf="task.title == 'Logout'" class="dropdown-item" (click)="LogOut()">
+                <i class="ti ti-power"></i>
+                <span style="cursor: pointer">Logout</span>
+              </a>
+            </div>
+          </ng-template>
+        </li>
+        <li ngbNavItem="2">
+          <a ngbNavLink><i class="ti ti-settings"></i> About</a>
+          <ng-template ngbNavContent>
+            <div *ngFor="let task of setting">
+              <a class="dropdown-item">
+                <i class="{{ task.icon }}"></i>
+                <span>{{ task.title }}</span>
+              </a>
+            </div>
+          </ng-template>
+        </li>
+      </ul>
+      <div [ngbNavOutlet]="nav"></div>
+    </div>
+  </li>
+</ul>

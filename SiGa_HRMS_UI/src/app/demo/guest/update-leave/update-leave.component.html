@@ -1,0 +1,142 @@
+<div class="row">
+  <div class="col-md-12 col-xl-8" style="width: 100%">
+    <div class="card tbl-card">
+      <div class="card-body">
+        <nav aria-label="breadcrumb" class="main-breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a [href]="'guest/dashboard'">Home</a></li>
+            <li class="breadcrumb-item"><a [href]="'guest/leave'">Leave</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Add Leave</li>
+          </ol>
+        </nav>
+
+        <div class="table-responsive"
+          ><div class="card">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-end mb-4">
+                <h3 class="mb-0"><b> Add Leave Information</b></h3>
+              </div>
+
+              <input type="number" [(ngModel)]="leaveDto.employeeId" hidden />
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label" for="phone">Leave*</label>
+                    <select
+                      type="text"
+                      #LeaveType="ngModel"
+                      required
+                      [(ngModel)]="leaveDto.leaveType"
+                      class="form-control"
+                      id="Employee"
+                      placeholder="Select leaveType"
+                    >
+                      <option selected>Select Leave Type</option>
+                      <option value="Paid Leave">Paid Leave</option>
+                      <option value="Personal Leave">Personal Leave</option>
+                    </select>
+                  </div>
+                  <div *ngIf="LeaveType.invalid && (LeaveType.dirty || LeaveType.touched)" class="alert alert-danger">
+                    <div *ngIf="LeaveType.errors?.['required']">Leave Type is required.</div></div
+                  >
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label" for="FormDate">Form Date*</label>
+                    <input
+                      type="date"
+                      [(ngModel)]="leaveDto.formDate"
+                      class="form-control"
+                      id="FormDate"
+                      placeholder="Form Date"
+                      #FormDate="ngModel"
+                      min="{{ today }}"
+                      (ngModelChange)="onDateChange($event)"
+                      required
+                    />
+                  </div>
+                  <div *ngIf="FormDate.invalid && (FormDate.dirty || FormDate.touched)" class="alert alert-danger">
+                    <div *ngIf="FormDate.errors?.['required']">Form Date is required.</div></div
+                  >
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label" for="toDate">To Date*</label>
+                    <input
+                      type="date"
+                      [(ngModel)]="leaveDto.toDate"
+                      class="form-control"
+                      id="toDate"
+                      placeholder="To Date"
+                      min="{{ leaveDto.formDate }}"
+                      (ngModelChange)="toonDateChange($event)"
+                      #toDate="ngModel"
+                      required
+                    />
+                  </div>
+                  <div *ngIf="toDate.invalid && (toDate.dirty || toDate.touched)" class="alert alert-danger">
+                    <div *ngIf="toDate.errors?.['required']">To Date is required.</div></div
+                  >
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label" for="Details">Details*</label>
+                    <input
+                      type="text"
+                      [(ngModel)]="leaveDto.details"
+                      #Details="ngModel"
+                      required
+                      class="form-control"
+                      id="Details"
+                      placeholder="Details"
+                    />
+                  </div>
+                  <div *ngIf="Details.invalid && (Details.dirty || Details.touched)" class="alert alert-danger">
+                    <div *ngIf="Details.errors?.['required']">Details is required.</div></div
+                  >
+                </div>
+              </div>
+              <div class="row" *ngIf="leaveDto.formDate == leaveDto.toDate">
+                <div class="col-md-6">
+                  <div class="form-group mb-3">
+                    <label class="form-label" for="phone">Leave Type*</label>
+                    <select
+                      type="text"
+                      #Leave="ngModel"
+                      required
+                      [(ngModel)]="leaveDto.leaveLength"
+                      class="form-control"
+                      id="Employee"
+                      placeholder="Select leaveType"
+                    >
+                      <option selected>Select Leave Type</option>
+                      <option value="Half">Half Day Leave</option>
+                      <option value="Full">Full Day Leave</option>
+                    </select>
+                  </div>
+                  <div *ngIf="Leave.invalid && (Leave.dirty || Leave.touched)" class="alert alert-danger">
+                    <div *ngIf="Leave.errors?.['required']">Leave is required.</div></div
+                  >
+                </div>
+              </div>
+
+              <div class="d-grid mt-3">
+                <button
+                  type="button"
+                  [disabled]="!FormDate.valid || !toDate.valid || !Details.valid"
+                  class="btn btn-primary"
+                  (click)="updateLeave()"
+                  >Update Leave</button
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
